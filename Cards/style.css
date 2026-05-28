@@ -1,0 +1,119 @@
+/* Reseta marges e deie a fonte padrão */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Centralizar carta para visualização */
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+}
+
+/* fudo do card/borda */
+.card{
+    width: 300px;
+    background-attachment: #0b132b;  /*azul escuro */
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /*espaço entra as div interna*/
+}
+
+/* header do cartão nome e hp */
+.card-header{
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #000;
+}
+
+.card-title{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-hp{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* container da imagem */
+.card-image-container {
+    background-color: #fff;
+    height: 200px; /*altura fixa para ter padrao*/
+    border-radius: 4px;
+    border: 2px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    overflow: hidden;
+}
+
+.card-image{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* barra de Status */
+.card-stats{
+    background-color: #a6a6a6;
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    justify-content:space-around;
+    border: 2px solid #000
+}
+
+.stat-icon{
+    font-size: 18px;
+}
+
+/* Area de habilidades */
+.card-abilities {
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ability{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ability-dot{
+    font-size: 20px;
+    color: #333;
+}
+
+.ability-box {
+    background-color: #666;
+    width: 100%;
+    min-height: 40px;
+    border-radius: 4px;
+    padding: 8px;
+    border: 2px solid #000;
+    display: flex;
+    align-items:center;
+}
+
+.ability-box p{
+    color: #fff;
+    font-size: 14px;
+}
+
