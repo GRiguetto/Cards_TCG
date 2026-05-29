@@ -1,119 +1,246 @@
-/* Reseta marges e deie a fonte padrão */
-
-*{
+/* ── Reset ── */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
 }
 
-/* Centralizar carta para visualização */
-body{
+/* ── Página ── */
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #333;
+    min-height: 100vh;
+    background-color: #1a1410;
+    background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(80,50,20,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(40,30,60,0.4) 0%, transparent 60%);
+    font-family: 'Crimson Text', Georgia, serif;
 }
 
-/* fudo do card/borda */
-.card{
-    width: 300px;
-    background-attachment: #0b132b;  /*azul escuro */
-    border-radius: 12px;
-    padding: 12px;
+/* ── Card principal ──
+   Tamanho renderizado: 280 x ~500 px */
+.card {
+    width: 280px;
+    position: relative;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 8px; /*espaço entra as div interna*/
+    gap: 8px;
+    background-color: #2a2018;
+    border-radius: 14px;
+    border: 2px solid #6a4e20;
+    outline: 1px solid #3a2e10;
+    box-shadow:
+        0 0 0 4px #1a1410,
+        0 8px 32px rgba(0,0,0,0.8),
+        inset 0 1px 0 rgba(180,140,60,0.15);
 }
 
-/* header do cartão nome e hp */
-.card-header{
-    background-color: #e0e0e0;
-    border-radius: 8px;
-    padding: 8px 12px;
+/* ── Header ── */
+.card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 2px solid #000;
+    background: linear-gradient(135deg, #3d2e10 0%, #2e2210 100%);
+    border: 1px solid #6a4e20;
+    border-radius: 8px;
+    padding: 7px 12px;
 }
 
-.card-title{
-    font-size: 16px;
-    font-weight: bold;
+.card-title {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #e8d090;
+    letter-spacing: 0.04em;
 }
 
-.card-hp{
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* container da imagem */
-.card-image-container {
-    background-color: #fff;
-    height: 200px; /*altura fixa para ter padrao*/
-    border-radius: 4px;
-    border: 2px solid #000;
+.card-hp {
     display: flex;
-    justify-content: center;
-    align-items:center;
-    overflow: hidden;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #e87070;
 }
 
-.card-image{
-    max-width: 100%;
-    max-height: 100%;
+/* Arquivo: images/icon-hp.png | Tamanho: 24x24 px */
+.hp-icon {
+    width: 24px;
+    height: 24px;
     object-fit: contain;
 }
 
-/* barra de Status */
-.card-stats{
-    background-color: #a6a6a6;
-    border-radius: 4px;
-    padding: 6px;
-    display: flex;
-    justify-content:space-around;
-    border: 2px solid #000
+/* ── Imagem do personagem ──
+   Container renderizado: 252x180 px
+   Ideal enviar 560x360 px para nitidez em telas retina */
+.card-image-container {
+    position: relative;
+    border-radius: 6px;
+    border: 1.5px solid #6a4e20;
+    overflow: hidden;
+    height: 180px;
+    background-color: #0d0a14;
 }
 
-.stat-icon{
-    font-size: 18px;
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
 }
 
-/* Area de habilidades */
-.card-abilities {
-    background-color: #d9d9d9;
-    border-radius: 8px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.card-type-banner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 10px;
+    background: linear-gradient(0deg, rgba(20,14,6,0.92) 0%, transparent 100%);
+    text-align: center;
 }
 
-.ability{
+.card-type-banner span {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 11px;
+    color: rgba(220,190,120,0.75);
+    letter-spacing: 0.1em;
+}
+
+/* ── Stats ── */
+.card-stats {
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(135deg, #3a2c10 0%, #2a2010 100%);
+    border: 1px solid #5a4218;
+    border-radius: 8px;
+    padding: 8px 6px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+}
+
+/* Arquivos: images/icon-def.png / icon-atk.png / icon-mag.png
+   Tamanho: 32x32 px cada */
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.stat-val {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #e8d090;
+    line-height: 1;
+}
+
+.stat-lbl {
+    font-family: 'Crimson Text', serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: rgba(180,150,80,0.6);
+    text-transform: uppercase;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(180deg, transparent, #6a4e20, transparent);
+}
+
+/* ── Habilidades ── */
+.card-abilities {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: linear-gradient(135deg, #2e2410 0%, #221a0c 100%);
+    border: 1px solid #5a4218;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.ability {
+    display: flex;
+    align-items: flex-start;
     gap: 8px;
 }
 
-.ability-dot{
-    font-size: 20px;
-    color: #333;
-}
-
-.ability-box {
-    background-color: #666;
-    width: 100%;
-    min-height: 40px;
-    border-radius: 4px;
-    padding: 8px;
-    border: 2px solid #000;
+/* Custo de mana: ícone + número sobreposto
+   Arquivo: images/icon-mana.png | Tamanho: 28x28 px */
+.ability-cost {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    flex-shrink: 0;
     display: flex;
-    align-items:center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
 }
 
-.ability-box p{
+.mana-icon {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.ability-cost span {
+    position: relative;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 700;
     color: #fff;
-    font-size: 14px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    z-index: 1;
 }
 
+.ability-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    border-left: 1.5px solid rgba(180,140,60,0.25);
+    padding-left: 8px;
+}
+
+.ability-name {
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #ddc878;
+    letter-spacing: 0.02em;
+}
+
+.ability-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 11px;
+    color: rgba(210,185,130,0.65);
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ── Flavor text ── */
+.flavor-text {
+    font-family: 'Crimson Text', serif;
+    font-style: italic;
+    font-size: 10px;
+    color: rgba(180,150,90,0.5);
+    text-align: center;
+    padding: 4px 10px 2px;
+    border-top: 1px solid rgba(120,90,30,0.3);
+    line-height: 1.4;
+}

@@ -2,44 +2,78 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Cards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <title>cards</title>
 </head>
 <body>
-    
+
     <div class="card">
 
-        <div class = "card-header">
-            <h2 class="card-title">Mago sombra</h2>
-            <div class="card-hp">25 <span class = "hp-icon">♥</span></div>
+        <div class="card-header">
+            <h2 class="card-title">Merlin</h2>
+            <div class="card-hp">
+                <img src="images/assets/hp-icon.png" alt="HP" class="hp-icon">
+                <span>25</span>
+            </div>
         </div>
 
-        <div class="card-image-cotainers">
-            <img src="" alt="Mago Sombra" class="card-image">
+       
+        <div class="card-image-container">
+            <img src="images/arts/mago.png" alt="Mago Sombra" class="card-image">
+            <div class="card-type-banner">
+                <span>Mago - Humano</span>
+            </div>
         </div>
 
+       
         <div class="card-stats">
-            <span class="stat-icon">🛡️</span>
-            <span class="stat-icon">💨</span>
-            <span class="stat-icon">💥</span>
+            <div class="stat-item">
+                <img src="images/assets/def-icon.png" alt="Defesa" class="stat-icon">
+                <span class="stat-val">5</span>
+                <span class="stat-lbl">DEF</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <img src="images/assets/atk-icon.png" alt="Ataque" class="stat-icon">
+                <span class="stat-val">8</span>
+                <span class="stat-lbl">ATK</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <img src="images/assets/icon-magia.png" alt="Magia" class="stat-icon">
+                <span class="stat-val">12</span>
+                <span class="stat-lbl">MAG</span>
+            </div>
         </div>
 
-        <div class="card-abilities" >
-            <div class = "ability">
-                <span class="ability-dot">●</span>
-                <div class ="ability-box">
-                    <p>Emboscador Terrível</p>
+       
+        <div class="card-abilities">
+            <div class="ability">
+                <div class="ability-cost">
+                    <img src="images/assets/icon-mana.png" alt="" class="mana-icon">
+                    <span>2</span>
+                </div>
+                <div class="ability-body">
+                    <span class="ability-name">Bola de Fogo</span>
+                    <span class="ability-desc">Causa 3d6 de dano em área ao redor do alvo.</span>
                 </div>
             </div>
+            <div class="ability">
+                <div class="ability-cost">
+                    <img src="images/assets/icon-mana.png" alt="" class="mana-icon">
+                    <span>1</span>
+                </div>
+                <div class="ability-body">
+                    <span class="ability-name">Surge das Sombras</span>
+                    <span class="ability-desc">+2 de dano ao atacar na escuridão. Adicione 1 Sombra.</span>
+                </div>
+            </div>
+        </div>
 
-            <div class = "ability">
-                <span class="ability-dot">●</span>
-                <div class ="ability-box">
-                    <p>Ataque Sombrio</p>
-                </div>
-            </div>
+        <div class="flavor-text">
+            "A inteligencia é a melhor arma"
         </div>
 
     </div>
