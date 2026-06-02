@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <title>D&D Cards</title>
+</head>
+<body>
+
+  <!-- Clique nas laterais para navegar -->
+  <div class="side-zone left" id="zone-left" aria-label="Carta anterior"></div>
+  <div class="side-zone right" id="zone-right" aria-label="Próxima carta"></div>
+
+  <div class="rpg-root">
+
+    <!-- Overlay de zoom -->
+    <div class="zoom-overlay" id="zoom-overlay">
+      <div class="zoom-card-wrapper" id="zoom-wrapper"></div>
+    </div>
+
+    <!-- Contador e tabs no topo -->
+    <div class="top-bar">
+      <span class="card-counter" id="counter">1 / 12</span>
+    </div>
+
+    <!-- Carta principal -->
+    <div class="card-stage">
+      <div class="card floating" id="card">
+        <div class="card-header" id="ch">
+          <h2 class="card-title" id="c-name"></h2>
+          <div class="card-hp">
+            <!-- ícone de coração: troque o src para seu ícone personalizado -->
+            <span class="hp-icon" id="hp-icon">
+              <img src="icons/heart.svg" alt="HP" onerror="this.style.display='none';this.nextSibling.style.display='inline'">
+              <span class="hp-fallback" style="display:none">♥</span>
+            </span>
+            <span id="c-hp"></span>
+          </div>
+        </div>
+
+        <div class="card-image-container" id="c-img-box">
+          <!-- A imagem do personagem: coloque arquivos em /images/nomeClasse.png -->
+          <img class="card-char-img" id="c-char-img" src="" alt="" onerror="this.style.display='none'">
+          <div class="card-type-banner">
+            <span id="c-type"></span>
+          </div>
+        </div>
+
+        <div class="card-stats" id="c-stats-box">
+          <!-- FOR -->
+          <div class="stat-item">
+            <span class="stat-icon-wrap">
+              <img class="stat-icon-img" src="icons/str.svg" alt="FOR" onerror="this.style.display='none'">
+            </span>
+            <span class="stat-val" id="s-str"></span>
+            <span class="stat-lbl">FOR</span>
+          </div>
+          <div class="stat-divider"></div>
+          <!-- DES -->
+          <div class="stat-item">
+            <span class="stat-icon-wrap">
+              <img class="stat-icon-img" src="icons/dex.svg" alt="DES" onerror="this.style.display='none'">
+            </span>
+            <span class="stat-val" id="s-dex"></span>
+            <span class="stat-lbl">DES</span>
+          </div>
+          <div class="stat-divider"></div>
+          <!-- CON -->
+          <div class="stat-item">
+            <span class="stat-icon-wrap">
+              <img class="stat-icon-img" src="icons/con.svg" alt="CON" onerror="this.style.display='none'">
+            </span>
+            <span class="stat-val" id="s-con"></span>
+            <span class="stat-lbl">CON</span>
+          </div>
+          <div class="stat-divider"></div>
+          <!-- INT -->
+          <div class="stat-item">
+            <span class="stat-icon-wrap">
+              <img class="stat-icon-img" src="icons/int.svg" alt="INT" onerror="this.style.display='none'">
+            </span>
+            <span class="stat-val" id="s-int"></span>
+            <span class="stat-lbl">INT</span>
+          </div>
+          <div class="stat-divider"></div>
+          <!-- SAB -->
+          <div class="stat-item">
+            <span class="stat-icon-wrap">
+              <img class="stat-icon-img" src="icons/wis.svg" alt="SAB" onerror="this.style.display='none'">
+            </span>
+            <span class="stat-val" id="s-wis"></span>
+            <span class="stat-lbl">SAB</span>
+          </div>
+          <div class="stat-divider"></div>
+          <!-- CAR -->
+          <div class="stat-item">
+            <span class="stat-icon-wrap">
+              <img class="stat-icon-img" src="icons/cha.svg" alt="CAR" onerror="this.style.display='none'">
+            </span>
+            <span class="stat-val" id="s-cha"></span>
+            <span class="stat-lbl">CAR</span>
+          </div>
+        </div>
+
+        <div class="card-abilities" id="c-ab-box">
+          <div class="ability" id="ab1">
+            <div class="ability-cost" id="ab1-cost"></div>
+            <div class="ability-body" id="ab1-body">
+              <span class="ability-name" id="ab1-name"></span>
+              <span class="ability-desc" id="ab1-desc"></span>
+            </div>
+          </div>
+          <div class="ability" id="ab2">
+            <div class="ability-cost" id="ab2-cost"></div>
+            <div class="ability-body" id="ab2-body">
+              <span class="ability-name" id="ab2-name"></span>
+              <span class="ability-desc" id="ab2-desc"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flavor-text" id="c-flavor"></div>
+      </div>
+    </div>
+
+    <!-- Tabs de classe -->
+    <div class="class-tabs" id="class-tabs"></div>
+
+  </div>
+
+  <script src="src/javascript/script.js"></script>
+</body>
+</html>
