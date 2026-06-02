@@ -1,246 +1,350 @@
-/* ── Reset ── */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* ── Página ── */
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #1a1410;
-    background-image:
-        radial-gradient(ellipse at 30% 20%, rgba(80,50,20,0.4) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 80%, rgba(40,30,60,0.4) 0%, transparent 60%);
-    font-family: 'Crimson Text', Georgia, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #1a1410;
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(80,50,20,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(40,30,60,0.4) 0%, transparent 60%);
+  font-family: 'Crimson Text', Georgia, serif;
+  overflow: hidden;
+  user-select: none;
 }
 
-/* ── Card principal ──
-   Tamanho renderizado: 280 x ~500 px */
+/* ─── Side click zones ─── */
+.side-zone {
+  position: fixed;
+  top: 0;
+  width: 22%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.side-zone.left  { left: 0; }
+.side-zone.right { right: 0; }
+.side-zone:hover {
+  background: rgba(255,255,255,0.03);
+}
+.side-zone::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-top: 2px solid rgba(255,255,255,0.15);
+  border-right: 2px solid rgba(255,255,255,0.15);
+  transition: border-color 0.2s;
+}
+.side-zone.left::after  { left: 20px;  transform: translateY(-50%) rotate(-135deg); }
+.side-zone.right::after { right: 20px; transform: translateY(-50%) rotate(45deg); }
+.side-zone:hover::after { border-color: rgba(255,255,255,0.4); }
+.side-zone.disabled { pointer-events: none; opacity: 0; }
+
+/* ─── Root layout ─── */
+.rpg-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0 1rem;
+  z-index: 20;
+}
+
+/* ─── Top bar ─── */
+.top-bar {
+  margin-bottom: 0.75rem;
+}
+.card-counter {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ─── Card Stage + floating animation ─── */
+.card-stage {
+  perspective: 900px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
 .card {
-    width: 280px;
-    position: relative;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background-color: #2a2018;
-    border-radius: 14px;
-    border: 2px solid #6a4e20;
-    outline: 1px solid #3a2e10;
-    box-shadow:
-        0 0 0 4px #1a1410,
-        0 8px 32px rgba(0,0,0,0.8),
-        inset 0 1px 0 rgba(180,140,60,0.15);
+  width: 290px;
+  position: relative;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 16px;
+  border: 2px solid;
+  outline: 1px solid;
+  cursor: zoom-in;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card.floating {
+  animation: float 4s ease-in-out infinite;
+}
+.card:hover {
+  animation-play-state: paused;
+  transform: translateY(-3px) scale(1.01);
 }
 
-/* ── Header ── */
+/* ─── Card Header ─── */
 .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, #3d2e10 0%, #2e2210 100%);
-    border: 1px solid #6a4e20;
-    border-radius: 8px;
-    padding: 7px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 7px 12px;
 }
-
 .card-title {
-    font-family: 'Cinzel', 'Times New Roman', serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #e8d090;
-    letter-spacing: 0.04em;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
-
 .card-hp {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-family: 'Cinzel', serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #e87070;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
 }
-
-/* Arquivo: images/icon-hp.png | Tamanho: 24x24 px */
 .hp-icon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.hp-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hp-fallback { font-size: 16px; }
 
-/* ── Imagem do personagem ──
-   Container renderizado: 252x180 px
-   Ideal enviar 560x360 px para nitidez em telas retina */
+/* ─── Card Image ─── */
 .card-image-container {
-    position: relative;
-    border-radius: 6px;
-    border: 1.5px solid #6a4e20;
-    overflow: hidden;
-    height: 180px;
-    background-color: #0d0a14;
+  position: relative;
+  border-radius: 6px;
+  border: 1.5px solid;
+  overflow: hidden;
+  height: 185px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
 }
-
-.card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
+.card-char-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  position: absolute;
+  top: 0; left: 0;
+  display: block;
 }
-
 .card-type-banner {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 5px 10px;
-    background: linear-gradient(0deg, rgba(20,14,6,0.92) 0%, transparent 100%);
-    text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 10px;
+  text-align: center;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
 }
-
 .card-type-banner span {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 11px;
-    color: rgba(220,190,120,0.75);
-    letter-spacing: 0.1em;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(220,200,160,0.85);
 }
 
-/* ── Stats ── */
+/* ─── Card Stats — 6 atributos D&D ─── */
 .card-stats {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: linear-gradient(135deg, #3a2c10 0%, #2a2010 100%);
-    border: 1px solid #5a4218;
-    border-radius: 8px;
-    padding: 8px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 7px 4px;
 }
-
 .stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
-
-/* Arquivos: images/icon-def.png / icon-atk.png / icon-mag.png
-   Tamanho: 32x32 px cada */
-.stat-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
+.stat-icon-wrap {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.stat-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* fallback: se não houver imagem fica invisível */
+}
 .stat-val {
-    font-family: 'Cinzel', serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #e8d090;
-    line-height: 1;
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
 }
-
 .stat-lbl {
-    font-family: 'Crimson Text', serif;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: rgba(180,150,80,0.6);
-    text-transform: uppercase;
+  font-family: 'Crimson Text', serif;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-
 .stat-divider {
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(180deg, transparent, #6a4e20, transparent);
+  width: 1px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
-/* ── Habilidades ── */
+/* ─── Abilities ─── */
 .card-abilities {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    background: linear-gradient(135deg, #2e2410 0%, #221a0c 100%);
-    border: 1px solid #5a4218;
-    border-radius: 8px;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 10px;
 }
-
 .ability {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
 }
-
-/* Custo de mana: ícone + número sobreposto
-   Arquivo: images/icon-mana.png | Tamanho: 28x28 px */
 .ability-cost {
-    position: relative;
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1px;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 1px;
+  flex-shrink: 0;
 }
-
-.mana-icon {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-.ability-cost span {
-    position: relative;
-    font-family: 'Cinzel', serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
-    z-index: 1;
-}
-
 .ability-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    border-left: 1.5px solid rgba(180,140,60,0.25);
-    padding-left: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-left: 1.5px solid;
+  padding-left: 8px;
 }
-
 .ability-name {
-    font-family: 'Cinzel', serif;
-    font-size: 10.5px;
-    font-weight: 600;
-    color: #ddc878;
-    letter-spacing: 0.02em;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
-
 .ability-desc {
-    font-family: 'Crimson Text', serif;
-    font-size: 11px;
-    color: rgba(210,185,130,0.65);
-    font-style: italic;
-    line-height: 1.3;
+  font-family: 'Crimson Text', serif;
+  font-size: 11px;
+  font-style: italic;
+  line-height: 1.3;
 }
 
-/* ── Flavor text ── */
+/* ─── Flavor text ─── */
 .flavor-text {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 10px;
-    color: rgba(180,150,90,0.5);
-    text-align: center;
-    padding: 4px 10px 2px;
-    border-top: 1px solid rgba(120,90,30,0.3);
-    line-height: 1.4;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px 10px 2px;
+  border-top: 1px solid;
+  line-height: 1.4;
 }
+
+/* ─── Class tabs ─── */
+.class-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 1rem;
+  max-width: 360px;
+}
+.class-tab {
+  font-size: 10px;
+  font-family: 'Cinzel', serif;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: none;
+  opacity: 0.45;
+  letter-spacing: 0.04em;
+}
+.class-tab.active { opacity: 1; font-weight: 700; }
+.class-tab:hover  { opacity: 0.8; }
+
+/* ─── Zoom Overlay ─── */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+.zoom-overlay.active {
+  background: rgba(0,0,0,0.82);
+  pointer-events: all;
+  cursor: zoom-out;
+}
+.zoom-card-wrapper {
+  transform: scale(0.7);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+  pointer-events: none;
+}
+.zoom-overlay.active .zoom-card-wrapper {
+  transform: scale(1.55);
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* ─── Card transition on switch ─── */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.card.switching {
+  animation: cardIn 0.28s ease forwards;
+}
+
+/* ─── Scrollbar oculta ─── */
+::-webkit-scrollbar { display: none; }
