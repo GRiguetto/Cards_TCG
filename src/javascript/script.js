@@ -18,7 +18,7 @@
 const cards = [
     {
       name: "Guerreiro", hp: 30, type: "Guerreiro — Humano",
-      img: "images/guerreiro.png",
+      img: "src/images/arts/guerreiro.png",
       stats: { str: 18, dex: 12, con: 14, int: 16, wis: 10, cha: 8 },
       abilities: [
         { cost: "★", name: "Segundo Fôlego",  desc: "Recupera 1d10+nível de HP como ação bônus." },
@@ -38,7 +38,7 @@ const cards = [
     },
     {
       name: "Mago", hp: 15, type: "Mago — Humano",
-      img: "images/mago.png",
+      img: "src/images/arts/mago.png",
       stats: { str: 8, dex: 16, con: 14, int: 18, wis: 12, cha: 10 },
       abilities: [
         { cost: "2", name: "Bola de Fogo",     desc: "Causa 8d6 de dano em área. CD DEX 15." },
@@ -58,7 +58,7 @@ const cards = [
     },
     {
       name: "Ladino", hp: 20, type: "Ladino — Meio-Elfo",
-      img: "images/ladino.png",
+      img: "src/images/arts/ladino.png",
       stats: { str: 8, dex: 18, con: 14, int: 16, wis: 10, cha: 12 },
       abilities: [
         { cost: "★", name: "Ataque Furtivo",   desc: "Causa 3d6 extra se tiver vantagem ou aliado adjacente." },
@@ -78,7 +78,7 @@ const cards = [
     },
     {
       name: "Clérigo", hp: 25, type: "Clérigo — Anão",
-      img: "images/clerigo.png",
+      img: "src/images/arts/clerigo.png",
       stats: { str: 16, dex: 8, con: 14, int: 10, wis: 18, cha: 12 },
       abilities: [
         { cost: "1", name: "Curar Ferimentos", desc: "Restaura 1d8+SAB de HP a uma criatura tocada." },
@@ -98,7 +98,7 @@ const cards = [
     },
     {
       name: "Paladino", hp: 28, type: "Paladino — Humano",
-      img: "images/paladino.png",
+      img: "src/images/arts/paladino.png",
       stats: { str: 18, dex: 8, con: 14, int: 10, wis: 12, cha: 16 },
       abilities: [
         { cost: "2", name: "Golpe Divino",     desc: "Adiciona 2d8 de dano radiante ao próximo ataque bem-sucedido." },
@@ -118,7 +118,7 @@ const cards = [
     },
     {
       name: "Ranger", hp: 22, type: "Ranger — Elfo",
-      img: "images/ranger.png",
+      img: "src/images/arts/ranger.png",
       stats: { str: 10, dex: 18, con: 14, int: 12, wis: 16, cha: 8 },
       abilities: [
         { cost: "★", name: "Inimigo Favorito", desc: "+2 de dano e vantagem em Percepção contra seu tipo escolhido." },
@@ -138,7 +138,7 @@ const cards = [
     },
     {
       name: "Bárbaro", hp: 35, type: "Bárbaro — Meio-Orc",
-      img: "images/barbaro.png",
+      img: "src/images/arts/barbaro.png",
       stats: { str: 18, dex: 14, con: 16, int: 8, wis: 12, cha: 10 },
       abilities: [
         { cost: "★", name: "Fúria",             desc: "+2 ATK, resistência a dano físico. Dura 1 minuto." },
@@ -158,7 +158,7 @@ const cards = [
     },
     {
       name: "Bardo", hp: 18, type: "Bardo — Gnomo",
-      img: "images/bardo.png",
+      img: "src/images/arts/bardo.png",
       stats: { str: 8, dex: 16, con: 12, int: 14, wis: 10, cha: 18 },
       abilities: [
         { cost: "★", name: "Inspiração Bárdica",desc: "Aliado ganha 1d8 extra em rolagem como ação bônus." },
@@ -178,7 +178,7 @@ const cards = [
     },
     {
       name: "Druida", hp: 20, type: "Druida — Elfo",
-      img: "images/druida.png",
+      img: "src/images/arts/druida.png",
       stats: { str: 8, dex: 14, con: 16, int: 12, wis: 18, cha: 10 },
       abilities: [
         { cost: "★", name: "Forma Selvagem",    desc: "Transforma-se em besta CR 1/4 ou menor como ação bônus." },
@@ -198,7 +198,7 @@ const cards = [
     },
     {
       name: "Feiticeiro", hp: 16, type: "Feiticeiro — Tiefling",
-      img: "images/feiticeiro.png",
+      img: "src/images/arts/feiticeiro.png",
       stats: { str: 8, dex: 16, con: 14, int: 10, wis: 12, cha: 18 },
       abilities: [
         { cost: "★", name: "Magia Metamórfica", desc: "Usa um Ponto de Feitiçaria para alterar qualquer magia." },
@@ -218,7 +218,7 @@ const cards = [
     },
     {
       name: "Bruxo", hp: 18, type: "Bruxo — Humano",
-      img: "images/bruxo.png",
+      img: "src/images/arts/bruxo.png",
       stats: { str: 8, dex: 12, con: 16, int: 14, wis: 10, cha: 18 },
       abilities: [
         { cost: "★", name: "Maldição do Bruxo", desc: "Marca alvo: +1d6 dano e vantagem em Percepção contra ele." },
@@ -238,7 +238,7 @@ const cards = [
     },
     {
       name: "Monge", hp: 22, type: "Monge — Humano",
-      img: "images/monge.png",
+      img: "src/images/arts/monge.png",
       stats: { str: 12, dex: 18, con: 14, int: 8, wis: 16, cha: 10 },
       abilities: [
         { cost: "★", name: "Artes Marciais",     desc: "Ataque desarmado como bônus após ataque de Ataque." },
