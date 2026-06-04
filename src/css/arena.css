@@ -127,3 +127,103 @@ body {
   font-family: 'Cinzel', serif;
 }
 .btn-start:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+/* ─── HUD DE ENERGIA ─── */
+.energy-hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: rgba(10, 5, 15, 0.8);
+  border: 2px solid #503880;
+  border-radius: 20px;
+  padding: 8px 20px;
+  margin: -25px auto 15px; /* Sobe um pouco para ficar em cima da linha */
+  width: fit-content;
+  position: relative;
+  z-index: 10;
+}
+
+.energy-text, .energy-count {
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+  color: #c0a070;
+}
+
+.energy-crystals {
+  display: flex;
+  gap: 5px;
+}
+
+.crystal {
+  width: 14px;
+  height: 14px;
+  background: #333;
+  transform: rotate(45deg);
+  border: 1px solid #000;
+  transition: all 0.3s ease;
+}
+
+.crystal.active {
+  background: #00ffff;
+  box-shadow: 0 0 10px #00ffff, inset 0 0 5px #fff;
+  border-color: #fff;
+}
+
+/* ─── BOTÃO DE TURNO ─── */
+.battle-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: -10px;
+}
+
+.btn-action {
+  background: #7a3060;
+  color: white;
+  border: 2px solid #e090c8;
+  padding: 8px 24px;
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.2s, filter 0.2s;
+}
+.btn-action:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* ─── ADAPTAÇÃO DA CARTA REAL PARA O SLOT DA ARENA ─── */
+/* O slot agora precisa ter o tamanho proporcional à carta escalada */
+.slot {
+  width: 145px;  /* Metade da largura original (290) */
+  height: 230px; /* Altura ajustada */
+  position: relative;
+  overflow: visible;
+}
+
+.slot .card {
+  transform: scale(0.5); /* Encolhe a carta pela metade */
+  transform-origin: top left;
+  position: absolute;
+  top: 0; left: 0;
+  margin: 0;
+  cursor: default; /* Remove o cursor de zoom da biblioteca */
+}
+
+/* Estilo para quando uma habilidade está "Engatilhada" na fila */
+.ability.queued {
+  outline: 2px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  background-color: rgba(0, 255, 255, 0.1) !important;
+  cursor: pointer;
+}
+
+/* Torna as habilidades clicáveis apenas durante a batalha */
+.battle-active .ability {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.battle-active .ability:hover {
+  filter: brightness(1.3);
+}

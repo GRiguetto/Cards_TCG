@@ -468,3 +468,217 @@ const cards = [
   ══════════════════════════════════════════ */
   buildTabs();
   render();
+
+  // ===== ESTADO DO JOGO =====
+let energiaMaxima = 5;
+let energiaAtual = 5;
+let faseBatalha = false;
+let cartasPosicionadas = 0;
+let cartaSelecionada = null;
+
+// Referências do DOM
+const rosterContainer = document.getElementById('roster');
+const playerSlots = document.querySelectorAll('.player-slot');
+const btnStart = document.getElementById('btn-start');
+const energyHud = document.getElementById('energy-hud');
+const battleControls = document.getElementById('battle-controls');
+const btnEndTurn = document.getElementById('btn-end-turn');
+
+// ===== 1. FUNÇÃO PARA GERAR A CARTA REAL (Usando o tema dinâmico) =====
+function gerarHTMLCartaReal(card, uniqueId) {
+  const t = card.theme;
+  
+  // Vamos traduzir o custo (★ ou 1) para um número inteiro de energia para a lógica
+  let custoAb1 = card.abilities[0].cost.includes('★') ? card.abilities[0].cost.length : parseInt(card.abilities[0].cost);
+  let custoAb2 = card.abilities[1].cost.includes('★') ? card.abilities[1].cost.length : parseInt(card.abilities[1].cost);
+  if (isNaN(custoAb1)) custoAb1 = 1;
+  if (isNaN(custoAb2)) custoAb2 = 2;
+
+  // Monta a string HTML usando exatamente as mesmas classes do seu style.css
+  return `
+    <div class="card" id="card-in-play-${uniqueId}" style="background-color: ${t.card}; border-color: ${t.border}; outline-color: ${t.outline};">
+      
+      <div class="card-header" style="background: ${t.header}; border-color: ${t.border};">
+        <h2 class="card-title" style="color: ${t.title}">${card.name}</h2>
+        <div class="card-hp" style="color: ${t.hp}">
+          <span class="hp-fallback">♥</span> ${card.hp}
+        </div>
+      </div>
+
+      <div class="card-image-container" style="background-color: ${t.imgBg}; border-color: ${t.border};">
+        <img class="card-char-img" src="${card.img}" alt="${card.name}">
+        <div class="card-type-banner"><span style="color: #dcc8a0">${card.type}</span></div>
+      </div>
+
+      <!-- Habilidades (Com atributos DATA para controlar o custo e a ação) -->
+      <div class="card-abilities" style="background: ${t.ab}; border-color: ${t.abBorder};">
+        
+        <div class="ability" data-cost="${custoAb1}" data-id="${uniqueId}" onclick="selecionarHabilidade(this)">
+          <div class="ability-cost" style="background: ${t.abCost}; color: ${t.abCostText};">${card.abilities[0].cost}</div>
+          <div class="ability-body" style="border-left-color: ${t.abBl};">
+            <span class="ability-name" style="color: ${t.abName};">${card.abilities[0].name}</span>
+            <span class="ability-desc" style="color: ${t.abDesc};">${card.abilities[0].desc}</span>
+          </div>
+        </div>
+
+        <div class="ability" data-cost="${custoAb2}" data-id="${uniqueId}" onclick="selecionarHabilidade(this)">
+          <div class="ability-cost" style="background: ${t.abCost}; color: ${t.abCostText};">${card.abilities[1].cost}</div>
+          <div class="ability-body" style="border-left-color: ${t.abBl};">
+            <span class="ability-name" style="color: ${t.abName};">${card.abilities[1].name}</span>
+            <span class="ability-desc" style="color: ${t.abDesc};">${card.abilities[1].desc}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  `;
+}
+
+// ===== 2. INICIALIZAR A MÃO DE CARTAS (Roster) =====
+cards.forEach((card, index) => {
+  const miniEl = document.createElement('div');
+  miniEl.className = 'mini-card';
+  miniEl.textContent = card.name;
+  miniEl.dataset.id = index;
+  miniEl.style.borderColor = card.theme.border;
+  miniEl.style.color = card.theme.title;
+
+  miniEl.addEventListener('click', () => {
+    if (faseBatalha) return; // Bloqueia seleção de novas cartas durante a batalha
+    document.querySelectorAll('.mini-card').forEach(c => c.classList.remove('selected'));
+    cartaSelecionada = card;
+    miniEl.classList.add('selected');
+    miniEl.dataset.elementId = index;
+  });
+
+  rosterContainer.appendChild(miniEl);
+});
+
+// ===== 3. POSICIONAR NA ARENA =====
+playerSlots.forEach((slot, slotIndex) => {
+  slot.addEventListener('click', () => {
+    if (faseBatalha) return; // Não pode mudar de lugar durante a luta
+
+    // Se já tiver carta, remove
+    if (slot.innerHTML !== '') {
+      const idDevolvido = slot.dataset.cardId;
+      document.querySelector(`.mini-card[data-id="${idDevolvido}"]`).classList.remove('used');
+      slot.innerHTML = '';
+      delete slot.dataset.cardId;
+      cartasPosicionadas--;
+      verificarProntidao();
+      return;
+    }
+
+    // Se tem carta selecionada, renderiza a CARTA COMPLETA no slot
+    if (cartaSelecionada) {
+      slot.innerHTML = gerarHTMLCartaReal(cartaSelecionada, slotIndex);
+      slot.dataset.cardId = document.querySelector('.mini-card.selected').dataset.id;
+      
+      const miniatura = document.querySelector('.mini-card.selected');
+      miniatura.classList.remove('selected');
+      miniatura.classList.add('used');
+      cartaSelecionada = null;
+      
+      cartasPosicionadas++;
+      verificarProntidao();
+    }
+  });
+});
+
+function verificarProntidao() {
+  btnStart.disabled = (cartasPosicionadas < 5);
+}
+
+// ===== 4. INICIAR BATALHA E SISTEMA DE ENERGIA =====
+btnStart.addEventListener('click', () => {
+  faseBatalha = true;
+  document.getElementById('selection-area').style.display = 'none';
+  energyHud.style.display = 'flex';
+  battleControls.style.display = 'flex';
+  
+  // Adiciona classe para liberar o clique nas habilidades
+  document.body.classList.add('battle-active'); 
+  atualizarHUD();
+});
+
+// Lógica de Clicar na Habilidade
+window.selecionarHabilidade = function(habilidadeDiv) {
+  if (!faseBatalha) return;
+
+  const custo = parseInt(habilidadeDiv.dataset.cost);
+  const estaNaFila = habilidadeDiv.classList.contains('queued');
+  
+  // Se já está na fila, o jogador quer cancelar a ação e recuperar energia
+  if (estaNaFila) {
+    habilidadeDiv.classList.remove('queued');
+    energiaAtual += custo;
+    atualizarHUD();
+    return;
+  }
+
+  // Verifica se a carta já tem outra habilidade na fila (não pode usar duas no mesmo turno)
+  const idDaCarta = habilidadeDiv.dataset.id;
+  const habilidadesDessaCarta = document.querySelectorAll(`.ability[data-id="${idDaCarta}"]`);
+  let jaTemAcao = false;
+  habilidadesDessaCarta.forEach(ab => {
+    if (ab.classList.contains('queued')) jaTemAcao = true;
+  });
+
+  if (jaTemAcao) {
+    alert("Esta carta já vai realizar uma habilidade neste turno!");
+    return;
+  }
+
+  // Se tem energia suficiente, gasta e coloca na fila
+  if (energiaAtual >= custo) {
+    habilidadeDiv.classList.add('queued');
+    energiaAtual -= custo;
+    atualizarHUD();
+  } else {
+    alert("Energia insuficiente!");
+  }
+};
+
+function atualizarHUD() {
+  document.getElementById('energy-count').textContent = `${energiaAtual}/${energiaMaxima}`;
+  const cristais = document.querySelectorAll('.crystal');
+  
+  cristais.forEach((cristal, index) => {
+    if (index < energiaAtual) {
+      cristal.classList.add('active');
+    } else {
+      cristal.classList.remove('active');
+    }
+  });
+}
+
+// ===== 5. RESOLVER O TURNO =====
+btnEndTurn.addEventListener('click', () => {
+  const acoes = document.querySelectorAll('.ability.queued');
+  
+  let relatorio = "FIM DE TURNO!\n\n";
+  
+  // Checa quem usou habilidade e quem vai dar ataque básico
+  playerSlots.forEach(slot => {
+    if(slot.innerHTML !== '') {
+      const nomeCarta = slot.querySelector('.card-title').textContent;
+      const habilidadeAtivada = slot.querySelector('.ability.queued');
+      
+      if (habilidadeAtivada) {
+        const nomeHab = habilidadeAtivada.querySelector('.ability-name').textContent;
+        relatorio += `> ${nomeCarta} usou [${nomeHab}]\n`;
+        // Reseta a fila da habilidade para o próximo turno
+        habilidadeAtivada.classList.remove('queued');
+      } else {
+        relatorio += `> ${nomeCarta} executou [Ataque Básico]\n`;
+      }
+    }
+  });
+
+  alert(relatorio);
+  
+  // Reseta a energia para o próximo turno
+  energiaAtual = energiaMaxima;
+  atualizarHUD();
+});

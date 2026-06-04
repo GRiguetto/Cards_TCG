@@ -29,9 +29,29 @@
       </div>
     </div>
 
-    <!-- LINHA DIVISÓRIA / CENTRO DA MESA -->
+
+    <!-- LINHA DIVISÓRIA / CENTRO DA MESA COM ENERGIA -->
     <div class="battle-center">
       <hr class="divider">
+      
+      <!-- HUD DE ENERGIA (Fica escondido até a batalha começar) -->
+      <div class="energy-hud" id="energy-hud" style="display: none;">
+        <span class="energy-text">Energia:</span>
+        <div class="energy-crystals" id="energy-crystals">
+          <div class="crystal active"></div>
+          <div class="crystal active"></div>
+          <div class="crystal active"></div>
+          <div class="crystal active"></div>
+          <div class="crystal active"></div>
+        </div>
+        <span class="energy-count" id="energy-count">5/5</span>
+      </div>
+      
+      <!-- CONTROLES DE TURNO -->
+      <div class="battle-controls" id="battle-controls" style="display: none;">
+        <button class="btn-action" id="btn-end-turn">Encerrar Turno</button>
+      </div>
+
     </div>
 
     <!-- LADO DO JOGADOR -->
