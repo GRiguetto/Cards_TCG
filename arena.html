@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arena de Batalha</title>
+  <link rel="stylesheet" href="src/css/arena.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Botão para voltar ao menu -->
+  <button class="btn-voltar" onclick="window.location.href='index.html'">Voltar</button>
+
+  <div class="arena-wrapper">
+    
+    <!-- LADO DO INIMIGO -->
+    <div class="board opponent-board">
+      <!-- 3 Atrás -->
+      <div class="row back-row">
+        <div class="slot enemy-slot"></div>
+        <div class="slot enemy-slot"></div>
+        <div class="slot enemy-slot"></div>
+      </div>
+      <!-- 2 na Frente -->
+      <div class="row front-row">
+        <div class="slot enemy-slot"></div>
+        <div class="slot enemy-slot"></div>
+      </div>
+    </div>
+
+    <!-- LINHA DIVISÓRIA / CENTRO DA MESA -->
+    <div class="battle-center">
+      <hr class="divider">
+    </div>
+
+    <!-- LADO DO JOGADOR -->
+    <div class="board player-board">
+      <!-- 2 na Frente -->
+      <div class="row front-row">
+        <div class="slot player-slot" data-pos="frente-1"></div>
+        <div class="slot player-slot" data-pos="frente-2"></div>
+      </div>
+      <!-- 3 Atrás -->
+      <div class="row back-row">
+        <div class="slot player-slot" data-pos="tras-1"></div>
+        <div class="slot player-slot" data-pos="tras-2"></div>
+        <div class="slot player-slot" data-pos="tras-3"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ÁREA DE SELEÇÃO DE CARTAS (Aparece antes da batalha) -->
+  <div class="selection-area" id="selection-area">
+    <h3 class="selection-title">Selecione suas 5 cartas e posicione no campo</h3>
+    <div class="roster" id="roster">
+      <!-- As miniaturas das cartas serão injetadas pelo JS aqui -->
+    </div>
+    <button class="btn-start" id="btn-start" disabled>Iniciar Batalha</button>
+  </div>
+
+  <script src="src/javascript/arena.js"></script>
+</body>
+</html>
