@@ -43,7 +43,126 @@
           <div class="crystal active"></div>
           <div class="crystal active"></div>
           <div class="crystal active"></div>
+        </div><!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arena de Batalha — D&D Cards</title>
+  <link rel="stylesheet" href="src/css/arena.css">
+  <link rel="stylesheet" href="src/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ── TOPO ── -->
+  <div class="top-bar">
+    <button class="btn-voltar" onclick="window.location.href='index.html'">← Voltar</button>
+    <span class="turn-indicator" id="turn-indicator">Posicionamento</span>
+    <span class="phase-badge" id="phase-badge">Escolha suas 5 cartas</span>
+  </div>
+
+  <!-- ── LAYOUT PRINCIPAL ── -->
+  <div class="arena-layout">
+
+    <!-- ── CAMPO DE BATALHA ── -->
+    <div class="battlefield">
+
+      <!-- LADO DO INIMIGO -->
+      <div class="board opponent-board">
+        <div class="board-label">↑ Território Inimigo</div>
+        <div class="row back-row">
+          <div class="slot enemy-slot" data-pos="enemy-back-1"><span class="slot-label">Recuo</span></div>
+          <div class="slot enemy-slot" data-pos="enemy-back-2"><span class="slot-label">Recuo</span></div>
+          <div class="slot enemy-slot" data-pos="enemy-back-3"><span class="slot-label">Recuo</span></div>
         </div>
+        <div class="row front-row">
+          <div class="slot enemy-slot" data-pos="enemy-front-1"><span class="slot-label">Frente</span></div>
+          <div class="slot enemy-slot" data-pos="enemy-front-2"><span class="slot-label">Frente</span></div>
+        </div>
+      </div>
+
+      <!-- CENTRO -->
+      <div class="battle-center">
+        <hr class="divider">
+
+        <div class="energy-hud" id="energy-hud" style="display:none;">
+          <span class="energy-label">Energia</span>
+          <div class="energy-crystals" id="energy-crystals">
+            <div class="crystal active"></div>
+            <div class="crystal active"></div>
+            <div class="crystal active"></div>
+            <div class="crystal active"></div>
+            <div class="crystal active"></div>
+          </div>
+          <span class="energy-count" id="energy-count">5/5</span>
+        </div>
+
+        <div class="battle-controls" id="battle-controls" style="display:none;">
+          <button class="btn-action" id="btn-end-turn">Encerrar Turno</button>
+        </div>
+      </div>
+
+      <!-- LADO DO JOGADOR -->
+      <div class="board player-board">
+        <div class="row front-row">
+          <div class="slot player-slot" data-pos="front-1"><span class="slot-label">Frente</span></div>
+          <div class="slot player-slot" data-pos="front-2"><span class="slot-label">Frente</span></div>
+        </div>
+        <div class="row back-row">
+          <div class="slot player-slot" data-pos="back-1"><span class="slot-label">Recuo</span></div>
+          <div class="slot player-slot" data-pos="back-2"><span class="slot-label">Recuo</span></div>
+          <div class="slot player-slot" data-pos="back-3"><span class="slot-label">Recuo</span></div>
+        </div>
+        <div class="board-label">↓ Seu Campo</div>
+      </div>
+
+    </div><!-- /battlefield -->
+
+    <!-- ── PAINEL LATERAL ── -->
+    <div class="side-panel">
+
+      <div class="panel-tabs">
+        <div class="panel-tab active" id="tab-selection" onclick="switchTab('selection')">Cartas</div>
+        <div class="panel-tab" id="tab-log" onclick="switchTab('log')">Log</div>
+      </div>
+
+      <div class="panel-content">
+
+        <!-- Seleção de cartas -->
+        <div class="selection-panel" id="panel-selection">
+          <div class="selection-title">Monte seu Esquadrão</div>
+          <div class="selection-sub">Clique na carta → clique no slot</div>
+          <div class="roster" id="roster"></div>
+          <div class="selection-actions">
+            <div class="progress-text" id="progress-text">0 / 5 posicionados</div>
+            <button class="btn-start" id="btn-start" disabled>⚔ Iniciar Batalha</button>
+          </div>
+        </div>
+
+        <!-- Log de batalha -->
+        <div class="battle-log" id="battle-log" style="display:none;">
+          <div class="log-entry system">— Aguardando o início da batalha —</div>
+        </div>
+
+      </div>
+    </div><!-- /side-panel -->
+
+  </div><!-- /arena-layout -->
+
+  <!-- ── GAME OVER ── -->
+  <div class="game-over-overlay" id="game-over-overlay">
+    <div class="game-over-box">
+      <div class="game-over-title" id="game-over-title">Vitória!</div>
+      <div class="game-over-sub" id="game-over-sub">Seu esquadrão prevaleceu.</div>
+      <button class="btn-restart" onclick="location.reload()">Jogar Novamente</button>
+    </div>
+  </div>
+
+  <script src="src/javascript/script.js"></script>
+  <script src="src/javascript/arena.js"></script>
+</body>
+</html>
         <span class="energy-count" id="energy-count">5/5</span>
       </div>
       
